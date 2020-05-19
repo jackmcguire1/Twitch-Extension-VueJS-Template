@@ -1,2 +1,10 @@
 
 .DS_Store
+
+EBS/.idea/
+
+EBS/.aws-sam/
+
+EBS/output.log
+
+EBS/dlv

@@ -1,0 +1,60 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+
+Globals:
+  Function:
+    Environment:
+      Variables:
+        CLIENT_ID: XXX
+        CLIENT_SECRET: XXX
+        OWNER_ID: XXX
+        EXT_CONFIG_VERSION: 1
+        EXT_VERSION: 0.0.1
+        AUTH_URL: http://127.0.0.1:3000/XXX
+        LOCALSTACK_HOST: localstack
+        LOCALSTACK_DYNAMO: 4569
+        ENVIRONMENT: dev
+        DEBUG_LEVEL: debug
+    Runtime: go1.x
+    Timeout: 300
+    Handler: main
+
+Resources:
+
+  MyApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: Prod
+      Cors:
+        AllowHeaders: "'Accept, Authorization, Content-Type'"
+        AllowOrigin: "'*'"
+
+  followers:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      CodeUri: ./lambda/handlers/followers/
+      Events:
+        GetFollowersValue:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MyApi
+            Path: '/followers/{id}'
+            Method: Get
+            Auth:
+              Authorizer: NONE
+        GetFollowersValueOptions:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MyApi
+            Path: '/followers/{id}'
+            Method: Options
+            Auth:
+              Authorizer: NONE
+      Tags:
+        FuncNameTag: !Sub ${AWS::StackName}-User-Followers-Value
+      FunctionName: !Sub ${AWS::StackName}-User-Followers-Value
+
+Outputs:
+  ApiURL:
+    Description: "API URL"
+    Value: !Sub 'https://${MyApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/'

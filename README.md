@@ -38,9 +38,9 @@ This project serves as a template to create a serverless EBS and creating the fr
 
 ## Installation
 This project is formed of two components, please see their sub-directories
-> goto ./client for the vueJS project
+> goto ./Client for the vueJS project
 
-> goto ./server for the EBS.
+> goto ./EBS for the EBS.
 
 ### Twitch Extension Configuration
 From your [Twitch Extension Dashboard](https://dev.twitch.tv/dashboard/extensions) you can get the following:
