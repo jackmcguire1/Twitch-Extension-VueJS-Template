@@ -1,0 +1,65 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Globals:
+  Function:
+    Environment:
+      Variables:
+        CLIENT_ID: xxxxx
+        CLIENT_SECRET: xxxxx
+        OWNER_ID: xxxx
+        EXT_CONFIG_VERSION: 1
+        EXT_VERSION: 0.0.1
+        APP_ACCESS_TOKEN: xxxx
+        AUTH_URL: http://127.0.0.1:3000/auth
+        LOCALSTACK_HOST: localstack
+        LOCALSTACK_DYNAMO: 4569
+        ENVIRONMENT: dev
+        DEBUG_LEVEL: debug
+    Runtime: go1.x
+    Timeout: 300
+    Handler: main
+Resources:
+  MyApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: Prod
+      Cors:
+        AllowHeaders: '''Accept, Authorization, Content-Type'''
+        AllowOrigin: '''*'''
+  Followers:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: Followers
+      Events:
+        GetFollowersValue:
+          Type: Api
+          Properties:
+            RestApiId:
+              Ref: MyApi
+            Path: /followers/{id}
+            Method: Get
+            Auth:
+              Authorizer: NONE
+        GetFollowersValueOptions:
+          Type: Api
+          Properties:
+            RestApiId:
+              Ref: MyApi
+            Path: /followers/{id}
+            Method: Options
+            Auth:
+              Authorizer: NONE
+      Policies:
+      - DynamoDBCrudPolicy:
+          TableName:
+            Ref: UsersTable
+      Tags:
+        FuncNameTag:
+          Fn::Sub: ${AWS::StackName}-User-Followers-Value
+      FunctionName:
+        Fn::Sub: ${AWS::StackName}-User-Followers-Value
+Outputs:
+  ApiURL:
+    Description: API URL
+    Value:
+      Fn::Sub: https://${MyApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/
