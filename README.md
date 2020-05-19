@@ -14,8 +14,11 @@
 [aws-sam-cli]: https://github.com/awslabs/aws-sam-cli
 [localstack]: https://github.com/localstack/localstack
 
-> This repo is contains a template for both an EBS written in golang and the front-end for a Twitch panel extension in vueJS.
+> This repo contains a template for both a serverless EBS written in golang and the front-end for a Twitch panel extension in vueJS.
 
+<p align="center">
+    <img align="center" src="https://vuejs.org/images/logo.png" width="50%" height="50%" title="Glo Boards">
+</p>
 
 ## ABOUT
 
