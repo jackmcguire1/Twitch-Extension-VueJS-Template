@@ -1,4 +1,4 @@
-# Twitch - Extension - Template - vuejs/ golang
+# Twitch - Extension - Template - vuejs / golang
 
 
 [git]:      https://git-scm.com/
