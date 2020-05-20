@@ -2,34 +2,30 @@ package main
 
 import (
 	"context"
-	"net/http"
-	"path/filepath"
-	"time"
-
 	log "github.com/apex/log"
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
 	twitchext "github.com/jackmcguire1/go-twitch-ext"
+	"net/http"
+	"path/filepath"
 
 	"EBS/m/v2/env"
 	"EBS/m/v2/pkg/twitch"
 	"EBS/m/v2/pkg/utils"
 )
 
-type FollowerStore struct {
-	Username   string
-	Followers  int
-	expiration time.Time
+type FollowersResponse struct {
+	Total     int         `json:"total"`
+	Followers []*Follower `json:"followers"`
 }
 
-type FollowersResponse struct {
-	Followers int `json:"followers"`
+type Follower struct {
+	Username string    `json:"username"`
 }
 
 var (
 	twitchPkg      *twitchext.Twitch
 	twitchInternal *twitch.Twitch
-	followersCache map[string]*FollowerStore
 )
 
 func init() {
@@ -44,18 +40,6 @@ func init() {
 		env.ExtConfigVersion,
 	)
 	twitchInternal, _ = twitch.New(env.ClientId, env.ClientSecret)
-
-	data, err := twitchInternal.GetAppAccessToken()
-	if err != nil {
-		panic(err)
-	}
-	twitchInternal.SetAppAccessToken(data.AccessToken)
-
-	log.
-		WithField("access-token-resp", utils.ToJSON(data)).
-		Info("got new app access token")
-
-	followersCache = map[string]*FollowerStore{}
 }
 
 func handler(
@@ -73,7 +57,7 @@ func handler(
 	resp = &events.APIGatewayProxyResponse{}
 
 	resp.Headers = map[string]string{
-		"Access-Control-Allow-Origin":      event.Headers["origin"],
+		"Access-Control-Allow-Origin":      event.Headers["Origin"],
 		"Access-Control-Allow-Methods":     "OPTIONS,GET",
 		"Access-Control-Allow-Headers":     "Content-Type,Authorization,X-Requested-With,Origin,Accept",
 		"Access-Control-Allow-Credentials": "true",
@@ -125,46 +109,64 @@ func handler(
 		WithField("raw-event", utils.ToJSON(event)).
 		WithField("userID", userID).
 		WithField("claims", utils.ToJSON(claims))
-
 	entryLog.Info("got claims from authorization header")
 
-	userFollowers, ok := followersCache[userID]
-	if ok {
-		if time.Now().Before(userFollowers.expiration) {
-			resp.Body = utils.ToJSON(&FollowersResponse{Followers: userFollowers.Followers})
+	var total int
+	var followers []*Follower
+	var requestCount int64
+	var bookmark string
+	for {
+		log.
+			WithField("request-num", requestCount).
+			WithField("userID", userID).
+			Info("getting followers from Twitch API")
+
+		followersResp, err := twitchInternal.GetChannelFollowers(userID, bookmark)
+		if err != nil {
+			resp.Body = utils.ToJSON(struct{ Error string }{Error: "failed to get followers"})
+			resp.StatusCode = http.StatusInternalServerError
+
 			entryLog.
 				WithField("raw-resp", utils.ToJSON(resp)).
-				WithField("follower", utils.ToJSON(userFollowers)).
-				Info("got followers from in-memory cache")
+				WithError(err).
+				Error("failed to get followers from Twitch API")
 
 			return
 		}
+		log.
+			WithField("request-num", requestCount).
+			WithField("userID", userID).
+			WithField("twitch-response", utils.ToJSON(followersResp)).
+			Debug("got followers from Twitch API")
+
+		total = followersResp.Data.Total
+
+		for _, follower := range followersResp.Data.Follows {
+			followers = append(followers, &Follower{
+				Username: follower.FromName,
+			})
+		}
+
+		if followersResp.Data.Pagination.Cursor == "" {
+			log.
+				WithField("request-num", requestCount).
+				WithField("userID", userID).
+				WithField("twitch-response", utils.ToJSON(followersResp)).
+				Debug("no cursor found, finished polling for followers")
+
+			break
+		}
+		bookmark = followersResp.Data.Pagination.Cursor
+
+		requestCount++
 	}
-
-	followersResp, err := twitchInternal.GetChannelFollowers(userID, "", 200)
-	if err != nil {
-		resp.Body = utils.ToJSON(struct{ Error string }{Error: "failed to get followers"})
-		resp.StatusCode = http.StatusInternalServerError
-
-		entryLog.
-			WithField("raw-resp", utils.ToJSON(resp)).
-			WithError(err).
-			Error("failed to get followers from Twitch API")
-
-		return
-	}
-	followers := followersResp.Data.Total
-
-	followersCache[userID] = &FollowerStore{
-		Followers:  followers,
-		expiration: time.Now().Add(time.Minute),
-	}
-	resp.Body = utils.ToJSON(&FollowersResponse{Followers: followers})
+	followersResp := utils.ToJSON(&FollowersResponse{Followers: followers, Total: total})
+	resp.Body = followersResp
 
 	entryLog.
+		WithField("followers-resp", followersResp).
 		WithField("raw-resp", utils.ToJSON(resp)).
-		WithField("followers-resp", utils.ToJSON(followersResp)).
-		Info("got followers from Twitch API")
+		Info("returning followers from Twitch API")
 
 	return
 }

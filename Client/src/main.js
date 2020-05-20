@@ -5,6 +5,8 @@ import store from "./store/index.js";
 import '@babel/polyfill'
 import 'mutationobserver-shim'
 import './plugins/bootstrap-vue'
+import "./assets/js/twitchExt.js";
+import "./api/api.js";
 import App from './App.vue'
 
 Vue.config.productionTip = false

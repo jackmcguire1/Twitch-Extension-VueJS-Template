@@ -7,9 +7,14 @@ build:
 run-api: build
 	sam local start-api \
 	--skip-pull-image \
-	-d 5859 \
+	--log-file ./output.log
+
+run-api-debug: build
+	sam local start-api \
+	--skip-pull-image \
 	--debugger-path . \
-	--debug-args="-delveAPI=2" \
+	-d 5859 \
+	--debug-args "-delveAPI=2" \
 	--log-file ./output.log
 
 validate:
