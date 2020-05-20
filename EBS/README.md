@@ -24,25 +24,26 @@ values where 'XXX' is found.
 ## Running locally with debugging
 This sections shows how to run the API endpoints locally
 
-> **Note***:- By default debugging is turned on and will run on port :**5859**
+> This project uses AWS SAM to run the API endpoints locally with debugging optionally enabled
+
+> - By default debugging is turned on and will run on port :**5859**
+
+> - check output.log for server logs
+
+```shell
+  make run-api
+ ```
+ 
+ **OR**
+ 
+ ```shell
+  make run-api-debug
+ ```
 
 ### API Endpoints
-> How to run the API endpoints locally with debugging
-
 
 **API Endpoints supported**:
 - Followers
-
-```shell
- make run-api
-```
-
-**OR**
-
-```shell 
-sam local start-api -d 5859 --debugger-path . --debug-args="-delveAPI=2" --log-file ./output.log
-```
-
 
 ## Development
 

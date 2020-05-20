@@ -3,6 +3,15 @@
     <ExtHeader title="Configuration"></ExtHeader>
 
     <div>
+      <b-jumbotron
+        header="BootstrapVue"
+        lead="Bootstrap v4 Components for Vue.js 2"
+      >
+        <p>For more information visit website</p>
+      </b-jumbotron>
+    </div>
+
+    <div>
       <b-form-group
         id="fieldset-1"
         description="Let us know your name."
@@ -54,16 +63,15 @@ export default {
     locale: String,
     page: String,
   },
-  mounted () {
+  mounted() {
     if (this.locale) {
       // eslint-disable-next-line no-undef
-      ga('set', 'language', this.locale);
+      ga("set", "language", this.locale);
     }
   },
   activated: function() {
-    
     // eslint-disable-next-line no-undef
-    ga("set", "page", "/"+this.page);
+    ga("set", "page", "/" + this.page);
     // eslint-disable-next-line no-undef
     ga("send", "pageview");
   },

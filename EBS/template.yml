@@ -10,9 +10,8 @@ Globals:
         OWNER_ID: XXX
         EXT_CONFIG_VERSION: 1
         EXT_VERSION: 0.0.1
-        AUTH_URL: http://127.0.0.1:3000/XXX
-        LOCALSTACK_HOST: localstack
-        LOCALSTACK_DYNAMO: 4569
+        AUTH_URL: XXX
+        APP_ACCESS_TOKEN: XXX
         ENVIRONMENT: dev
         DEBUG_LEVEL: debug
     Runtime: go1.x

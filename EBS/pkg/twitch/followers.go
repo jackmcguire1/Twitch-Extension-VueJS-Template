@@ -11,14 +11,13 @@ import (
 func (t *Twitch) GetChannelFollowers(
 	userID string,
 	bookmark string,
-	limit int,
 ) (
 	users *helix.UsersFollowsResponse,
 	err error,
 ) {
 	params := &helix.UsersFollowsParams{
 		ToID:  userID,
-		First: limit,
+		First: 100,
 	}
 
 	if bookmark != "" {

@@ -3,7 +3,7 @@ import axios from "axios";
 
 var baseURL = process.env.VUE_APP_ROOT_API_DEV;
 
-const API = initAPI({ baseURL, withCredentials: true });
+const API = initAPI({ baseURL });
 
 function initAPI(config) {
   const instance = axios.create(config);
@@ -18,19 +18,16 @@ function initAPI(config) {
   );
 
   // override which api to use depending on the the env of the Twitch extension
-  // isit running on dev, testing, released
+  // isit running on dev, testing, released modes?
   store.watch(
     state => state.releaseState,
     releaseState => {
       switch (releaseState) {
         case "released":
-          instance.defaults.baseURL = process.env.VUE_APP_ROOT_API_PROD;
-          break;
-        case "testing":
-          instance.defaults.baseURL = process.env.VUE_APP_ROOT_API_DEV;
+          // change base url here for production url
           break;
         default:
-          instance.defaults.baseURL = process.env.VUE_APP_ROOT_API_STAGING;
+          instance.defaults.baseURL = process.env.VUE_APP_ROOT_API_DEV;
       }
     }
   );
