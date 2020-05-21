@@ -31,7 +31,7 @@ This project serves as a template to create a serverless EBS and creating the fr
 
 - [Git][git]
 - [Go 1.14][golang]+
-- [VueJS][vue]
+- [vue-cli][vue]
 - [aws-cli][aws-cli]
 - [aws-sam-cli][aws-sam-cli]
 - [localstack][localstack] - [OPTIONAL]
