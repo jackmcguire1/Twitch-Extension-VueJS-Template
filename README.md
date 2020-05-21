@@ -80,14 +80,10 @@ Get started and create your extension [today!](https://dev.twitch.tv/extensions)
 
 ## FAQ & SUPPORT
 For any questions or suggestions please join the **'go-twitch-ext'** channel on [Discord][discord]!
-> - [https://dev.twitch.tv/docs/extensions]
-> - [https://discord.gg/566fFzA] - Twitch dev community discord
-> - [https://discord.gg/qe7b8da] - BootstrapVue discord
-> - [https://discord.gg/Q4PX2Yj] - Twitch API discord
-
-
-## License
-The source code for go-twitch-ext is released under the [MIT License][MIT].
+> - [https://dev.twitch.tv/docs/extensions](https://dev.twitch.tv/docs/extensions)
+> - [https://discord.gg/566fFzA](https://discord.gg/566fFzA) - Twitch dev community discord
+> - [https://discord.gg/qe7b8da](https://discord.gg/qe7b8da) - BootstrapVue discord
+> - [https://discord.gg/Q4PX2Yj](https://discord.gg/Q4PX2Yj) - Twitch API discord
 
 ## Donations
 All donations are appreciated!
