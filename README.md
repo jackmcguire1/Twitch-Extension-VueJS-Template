@@ -17,14 +17,13 @@
 > This repo contains a template for both a serverless EBS written in golang and the front-end for a Twitch panel extension in vueJS.
 
 <p align="center">
-    <img align="center" src="https://vuejs.org/images/logo.png" width="50%" height="50%" title="Glo Boards">
+    <img align="center" src="https://vuejs.org/images/logo.png" width="25%" height="25%" title="VueJS logo">
 </p>
 
 ## ABOUT
 
-This project serves as a template to create a serverless EBS and creating the front-end of a Twitch panel extension in vueJS.
-
-
+This project serves as a template to create a serverless EBS and creating the front-end of a Twitch panel extension in vueJS.<br>
+This extension will display a list of a broadcaster's followers in a formatted table.
 
 ### Prerequisites
 > Make sure you have the following installed:
