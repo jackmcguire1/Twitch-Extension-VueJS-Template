@@ -49,8 +49,8 @@ From your [Twitch Extension Dashboard](https://dev.twitch.tv/dashboard/extension
 - Extension (**Broadcaster**/**Developer**) Config Version - *OPTIONAL*
 
 ### Owner ID
-To get the owner ID, you will need to first create a temporary access token via [https://twitchtokengenerator.com/]()<br>
-Next fetch your ownerID from a simple CURL command against the Twitch `/users` endpoint.<br> You'll also need the <b>client ID</b> from [https://twitchtokengenerator.com/]() as part of the query.
+To get the owner ID, you will need to first create a temporary access token via [https://twitchtokengenerator.com/](https://twitchtokengenerator.com/)<br>
+Next fetch your ownerID from a simple CURL command against the Twitch `/users` endpoint.<br> You'll also need the <b>client ID</b> from [https://twitchtokengenerator.com/](https://twitchtokengenerator.com/) as part of the query.
 
 ```bash
 curl -H "Client-ID: <client id>" -H "Authorization: Bearer <access token>" -X GET "https://api.twitch.tv/helix/users?login=<twitch-login-name>"
