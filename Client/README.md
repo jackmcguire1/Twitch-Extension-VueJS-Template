@@ -28,7 +28,7 @@ configure './public/static/google.js'
 > with your google analytics project id
 
 ## Rmote Debugging
-[https://github.com/vuejs/vue-devtools/blob/dev/packages/shell-electron/README.md]()
+[https://github.com/vuejs/vue-devtools/blob/dev/packages/shell-electron/README.md](https://github.com/vuejs/vue-devtools/blob/dev/packages/shell-electron/README.md)
 
 
 ### Customize configuration

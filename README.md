@@ -17,21 +17,20 @@
 > This repo contains a template for both a serverless EBS written in golang and the front-end for a Twitch panel extension in vueJS.
 
 <p align="center">
-    <img align="center" src="https://vuejs.org/images/logo.png" width="50%" height="50%" title="Glo Boards">
+    <img align="center" src="https://vuejs.org/images/logo.png" width="25%" height="25%" title="VueJS logo">
 </p>
 
 ## ABOUT
 
-This project serves as a template to create a serverless EBS and creating the front-end of a Twitch panel extension in vueJS.
-
-
+This project serves as a template to create a serverless EBS and creating the front-end of a Twitch panel extension in vueJS.<br>
+This extension will display a list of a broadcaster's followers in a formatted table.
 
 ### Prerequisites
 > Make sure you have the following installed:
 
 - [Git][git]
 - [Go 1.14][golang]+
-- [VueJS][vue]
+- [vue-cli][vue]
 - [aws-cli][aws-cli]
 - [aws-sam-cli][aws-sam-cli]
 - [localstack][localstack] - [OPTIONAL]
@@ -50,8 +49,8 @@ From your [Twitch Extension Dashboard](https://dev.twitch.tv/dashboard/extension
 - Extension (**Broadcaster**/**Developer**) Config Version - *OPTIONAL*
 
 ### Owner ID
-To get the owner ID, you will need to first create a temporary access token via [https://twitchtokengenerator.com/]()<br>
-Next fetch your ownerID from a simple CURL command against the Twitch `/users` endpoint.<br> You'll also need the <b>client ID</b> from [https://twitchtokengenerator.com/]() as part of the query.
+To get the owner ID, you will need to first create a temporary access token via [https://twitchtokengenerator.com/](https://twitchtokengenerator.com/)<br>
+Next fetch your ownerID from a simple CURL command against the Twitch `/users` endpoint.<br> You'll also need the <b>client ID</b> from [https://twitchtokengenerator.com/](https://twitchtokengenerator.com/) as part of the query.
 
 ```bash
 curl -H "Client-ID: <client id>" -H "Authorization: Bearer <access token>" -X GET "https://api.twitch.tv/helix/users?login=<twitch-login-name>"
@@ -80,14 +79,10 @@ Get started and create your extension [today!](https://dev.twitch.tv/extensions)
 
 ## FAQ & SUPPORT
 For any questions or suggestions please join the **'go-twitch-ext'** channel on [Discord][discord]!
-> - [https://dev.twitch.tv/docs/extensions]()
-> - [https://discord.gg/566fFzA]() - Twitch dev community discord
-> - [https://discord.gg/qe7b8da]() - BootstrapVue discord
-> - [https://discord.gg/Q4PX2Yj]() - Twitch API discord
-
-
-## License
-The source code for go-twitch-ext is released under the [MIT License][MIT].
+> - [https://dev.twitch.tv/docs/extensions](https://dev.twitch.tv/docs/extensions)
+> - [https://discord.gg/566fFzA](https://discord.gg/566fFzA) - Twitch dev community discord
+> - [https://discord.gg/qe7b8da](https://discord.gg/qe7b8da) - BootstrapVue discord
+> - [https://discord.gg/Q4PX2Yj](https://discord.gg/Q4PX2Yj) - Twitch API discord
 
 ## Donations
 All donations are appreciated!
