@@ -8,7 +8,7 @@ require (
 	github.com/aws/aws-sdk-go v1.31.1
 	github.com/coreos/go-oidc v2.2.1+incompatible
 	github.com/google/go-cmp v0.4.1 // indirect
-	github.com/jackmcguire1/go-twitch-ext v0.1.2
+	github.com/jackmcguire1/go-twitch-ext v0.1.6
 	github.com/kr/pretty v0.1.0 // indirect
 	github.com/nicklaw5/helix v0.7.0
 	github.com/pquerna/cachecontrol v0.0.0-20180517163645-1555304b9b35 // indirect
