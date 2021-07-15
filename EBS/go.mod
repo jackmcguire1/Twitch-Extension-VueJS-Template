@@ -4,7 +4,7 @@ go 1.13
 
 require (
 	github.com/apex/log v1.9.0
-	github.com/aws/aws-lambda-go v1.23.0
+	github.com/aws/aws-lambda-go v1.25.0
 	github.com/aws/aws-sdk-go v1.38.38
 	github.com/coreos/go-oidc v2.2.1+incompatible
 	github.com/google/go-cmp v0.4.1 // indirect
