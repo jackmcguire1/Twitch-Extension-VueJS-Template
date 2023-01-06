@@ -23,7 +23,7 @@
     "@babel/polyfill": "^7.7.0",
     "@vue/cli-plugin-babel": "~4.3.0",
     "@vue/cli-plugin-eslint": "~4.3.0",
-    "@vue/cli-service": "~4.3.0",
+    "@vue/cli-service": "~5.0.8",
     "@vue/devtools": "^5.3.3",
     "babel-eslint": "^10.1.0",
     "bootstrap": "^4.3.1",
